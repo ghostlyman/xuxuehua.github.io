@@ -7,12 +7,12 @@ title: Xu Xuehua's Website
 subtitle: No one's born being good at all things, you become good at things through hard work.
 description:
 author: Xu Xuehua
-language: en
-timezone:
+language: zh-CN
+timezone: UTC+8
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://xuxuehua.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
