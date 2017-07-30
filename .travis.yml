@@ -5,8 +5,8 @@ node_js: stable
 before_install:
 - npm install -g hexo-cli
 - npm install hexo-deployer-git --save
-- git config --global user.name "Xu Xuehua"
-- git config --global user.email "xuxuehua@gmail.com"
+- git config --global user.name "Xu Xuehua" 
+- git config --global user.email xuxuehua@gmail.com
 #
 install:
 - npm install
@@ -22,11 +22,11 @@ script:
 after_script:
 - cd ./public
 - git init
-- git config user.name Xu Xuehua
-- git config user.email xuxuehua3@gmail.com
+- git config user.name "Xu Xuehua"
+- git config user.email "xuxuehua3@gmail.com"
 - git add .
-- git commit -m Update
-- git push --force --quiet https://@ master:master
+- git commit -m "Update"
+- git push --force --quiet "https://@" master:master
 
 branches:
   only:
