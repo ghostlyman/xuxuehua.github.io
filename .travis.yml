@@ -25,8 +25,8 @@ after_script:
 - git config user.name "Xu Xuehua"
 - git config user.email "xuxuehua3@gmail.com"
 - git add .
-- git commit -m "Update"
-- git push --force --quiet "https://@" master:master
+- git commit -m "Update at `date`"
+- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 
 branches:
   only:
