@@ -6,7 +6,7 @@
 
 ## Hello World
 
-```ipython
+```python
 In [2]: print('Hello World')
 Hello World
 ```
@@ -27,7 +27,7 @@ Hello World
 > 原始类型和复合类型
 
 *  强类型特点
-```ipython
+```python
 In [3]: 1 + 'abc'
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
