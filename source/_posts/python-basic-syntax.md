@@ -1,3 +1,7 @@
+---
+title:  Python 基础语法
+---
+
 [toc]
 
 # Python 基础语法
