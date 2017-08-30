@@ -3,7 +3,6 @@ title: python container
 date: 2017-08-17 01:33:43
 tags:
 ---
-
 [toc]
 
 
@@ -596,6 +595,12 @@ KeyError                                  Traceback (most recent call last)
 ----> 1 d['c']
 
 KeyError: 'c'
+
+In [2]: d.get('a')
+Out[2]: 1
+
+In [3]: d.get('c', 'cannot found c')
+Out[3]: 'cannot found c'
 ```
 
 #### keys, values, items 遍历字典
@@ -642,7 +647,7 @@ Out[41]: True
 ```
 
 
-* popitem
+* popitem 随机删除
 
 ```python
 In [44]: d
@@ -658,5 +663,16 @@ In [47]: d
 Out[47]: {}
 ```
 
+* del 关键字
+
+```python
+In [4]: d
+Out[4]: {'a': 1, 'b': 2}
+
+In [5]: del d['a']
+
+In [6]: d
+Out[6]: {'b': 2}
+```
 
 
