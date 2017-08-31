@@ -3,6 +3,7 @@ title: python container
 date: 2017-08-17 01:33:43
 tags:
 ---
+
 [toc]
 
 
@@ -617,6 +618,18 @@ Out[35]: dict_values([5, 2])
 
 In [36]: d.items()
 Out[36]: dict_items([('a', 5), ('b', 2)])
+
+In [2]: d
+Out[2]: {'a': 1, 'b': 2, 'c': 3}
+
+In [3]: for k, v in d.items():
+   ...:     print('{0} -> {1}'.format(k, v))
+   ...:     
+c -> 3
+b -> 2
+a -> 1
+
+
 ```
 
 
@@ -673,6 +686,155 @@ In [5]: del d['a']
 
 In [6]: d
 Out[6]: {'b': 2}
+```
+
+
+## 列表解析
+
+> 列表解析是python的重要的语法糖
+> 列表解析的速度比for in迭代快
+
+
+
+### 基本语法
+
+`ret = [expression for item in iterator]` 
+
+等价于 
+```python
+ret = []
+for item in iterator:
+    ret.append(expression)
+```
+
+
+
+
+```python
+In [2]: L
+Out[2]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [3]: [x+1 for x in L]
+Out[3]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+```
+
+迭代时间快
+
+```python
+In [10]: timeit.timeit('[x+1 for x in range(10)]')
+
+Out[10]: 2.861458881001454
+
+In [11]: timeit.timeit('''
+    ...: l=[]
+    ...: for x in range(10):
+    ...:     l.append(x+1)
+    ...: ''')
+Out[11]: 3.5815405790053774
+```
+
+
+### 带条件
+
+```python
+Out[12]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [13]: [x+1 for x in L if x%2 ==0]
+Out[13]: [1, 3, 5, 7, 9]
+
+In [15]: [x+1 for x in L if x%2 == 0 if x>2]
+Out[15]: [5, 7, 9]
+
+```
+
+## 笛卡尔积
+
+### 基本语法
+
+`ret = [expression for x in X for y in Y]`
+
+等价于
+```python
+ret = []
+for x in X:
+    for y in Y:
+        ret.append(expression)
+```
+
+
+```python
+In [17]: l1 = [1, 2, 3]
+
+In [18]: l2 = [4, 5, 6]
+
+In [19]: [(x, y) for x in l1 for y in l2]
+Out[19]: [(1, 4), (1, 5), (1, 6), (2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6)]
+```
+
+
+## 集合解析
+
+### 基本语法
+
+`ret = {expression for item in iterator}`
+
+等价于
+
+
+```python
+ret = set()
+for item in iterator:
+    ret.add(expression)
+```
+
+```python
+In [20]: s = {1, 3, 5}
+
+In [21]: {x+1 for x in s}
+Out[21]: {2, 4, 6}
+
+In [22]: {x+1 for x in range(10)}
+Out[22]: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+In [23]: {x+1 for x in [2, 2, 2, 2]}
+Out[23]: {3}
+```
+
+
+
+## 字典解析
+
+### 基本语法
+
+`ret = {exprK:exprV for item in iterator}`
+
+等价于
+
+```python
+ret = dict()
+for item in iterator:
+    ret.update({exprK: exprV})
+```
+
+```python
+In [24]: d = {'a': 1, 'b': 2}
+
+In [25]: {k:v for k, v in d.items()}
+Out[25]: {'a': 1, 'b': 2}
+
+In [26]: l1
+Out[26]: [1, 2, 3]
+
+In [27]: l2
+Out[27]: [4, 5, 6]
+
+In [28]: {x:y for x in l1 for y in l2}
+Out[28]: {1: 6, 2: 6, 3: 6}
+
+In [29]: {k:v for k, v in [('a', 1), ('b', 2)]}
+Out[29]: {'a': 1, 'b': 2}
+
 ```
 
 
