@@ -555,3 +555,48 @@ Out[149]: 'I lxve Pythxn'
 ```
 
 
+## STR 与 BYTES
+
+> Python3 中严格区分了文本和二进制数据
+> Python2 中并没有严格区分
+> 文本数据使用str类型，底层实现是unicode
+> 二进制数据使用bytes类型，底层是bytes
+> str使用encode 方法转化为bytes
+> bytes使用decode方法转化为str
+
+* python2
+
+```python
+In [1]: s = '中文'
+
+In [2]: s
+Out[2]: '\xe4\xb8\xad\xe6\x96\x87'
+
+In [3]: s.encode()
+---------------------------------------------------------------------------
+UnicodeDecodeError                        Traceback (most recent call last)
+<ipython-input-2-1194a7b23c15> in <module>()
+----> 1 s.encode()
+
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe4 in position 0: ordinal not in range(128)
+```
+
+* python3
+
+```python
+In [5]: s
+Out[5]: '中文'
+
+In [6]: s.encode()
+Out[6]: b'\xe4\xb8\xad\xe6\x96\x87'
+
+In [7]: s.encode('utf-8')
+Out[7]: b'\xe4\xb8\xad\xe6\x96\x87'
+
+In [8]: b = s.encode()
+
+In [9]: b.decode()
+Out[9]: '中文'
+```
+
+
