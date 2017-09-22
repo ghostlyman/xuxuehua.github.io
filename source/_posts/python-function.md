@@ -375,6 +375,55 @@ print(inc2(5))
 7
 ```
 
+### 柯里化
+
+`f(x, y) -> g(x)(y)`
+
+```python
+def bigger(x):
+    def inner_bigger(y):
+        return y > x
+    return inner_bigger
+
+print(list(filter(bigger(5), range(10))))
+>>>
+[6, 7, 8, 9]
+```
+
+### partial 函数
+
+```python
+from functools import partial
+
+def many_args(x, y, z, a, b, c):
+    print('x is {}'.format(x))
+    print('y is {}'.format(y))
+    print('z is {}'.format(z))
+    print('a is {}'.format(a))
+    print('b is {}'.format(b))
+    print('c is {}'.format(c))
+
+fn1 = partial(many_args, a=1, b=2, c=3)
+print(fn1(4, 5, 6))
+print(fn1(4, 5, 6, a=2))
+>>>
+x is 4
+y is 5
+z is 6
+a is 1
+b is 2
+c is 3
+None
+x is 4
+y is 5
+z is 6
+a is 2
+b is 2
+c is 3
+None
+```
+
+
 
 
 
@@ -470,4 +519,119 @@ for x in fn(5):
 ```
 
 
+## 装饰器
+
+> 一个函数传递给另一个函数，通过外部补充操作(装饰)，然后返回
+
+
+### 无参数
+
+```python
+import time
+
+def timeit(fn):
+    start = time.time()
+    fn()
+    print(time.time() - start)
+
+def sleep():
+    time.sleep(3)
+
+timeit(sleep)
+>>>
+3.0023179054260254
+```
+
+
+### 传入参数
+
+```python
+import time
+
+def timeit(fn):
+    def wrap(x):
+        start = time.time()
+        fn(x)
+        print(time.time() - start)
+    return wrap
+
+def sleep(x):
+    time.sleep(x)
+
+timeit(sleep)(3)
+>>>
+3.0029549598693848
+```
+
+#### 传入可变参数和关键字参数
+
+
+```python
+import time
+
+def timeit(fn):
+    def wrap(*args, **kwargs):
+        start = time.time()
+        fn(*args, **kwargs)
+        print(time.time() - start)
+    return wrap
+
+def sleep(x):
+    time.sleep(x)
+
+timeit(sleep)(3)
+>>>
+3.0033228397369385
+```
+
+### @语法糖
+
+> 相当于把@符合下面定义多函数做为参数传递给前面的装饰器对应的函数
+
+```python
+import time
+
+def timeit(fn):
+    def wrap(*args, **kwargs):
+        start = time.time()
+        fn(*args, **kwargs)
+        print(time.time() - start)
+    return wrap
+
+@timeit
+def sleep(x):
+    time.sleep(x)
+
+sleep(3)
+>>>
+3.00268292427063
+```
+
+### 增加返回值
+
+```python
+import time
+
+def timeit(fn):
+    def wrap(*args, **kwargs):
+        start = time.time()
+        ret = fn(*args, **kwargs)
+        print(time.time() - start)
+        return ret
+    return wrap
+
+@timeit
+def add(x, y):
+    return x + y
+
+print(add(5, 6))
+>>>
+9.5367431640625e-07
+11
+``` 
+
+### 应用场景
+
+> 装饰器实现框架层面的路由功能
+> 如Flask， Django
 
