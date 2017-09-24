@@ -5,7 +5,6 @@ tags:
 ---
 
 
-
 [toc]
 
 # 函数
@@ -424,6 +423,24 @@ None
 ```
 
 
+### 匿名函数 lambda
+
+> 只能写在单行，不能换行
+
+`lambda x: x * x` 其本质就是
+
+```python
+def f(x):
+    return x * x
+```
+
+`lambda x, y: x + y` 其本质就是
+
+```python
+def f(x, y):
+    return x + y
+```
+
 
 
 
@@ -634,4 +651,70 @@ print(add(5, 6))
 
 > 装饰器实现框架层面的路由功能
 > 如Flask， Django
+
+#### 权限控制
+
+```python
+def check(allows):
+    def deco(fn):
+        def wrap(username, *args, **kwargs):
+            if username in allows:
+                return fn(username, *args, **kwargs)
+            return "not allow"
+        return wrap
+    return deco
+
+@check(['Rick', 'Michelle'])
+def private(username):
+    print('Allowed operation')
+
+print(private('Rick'))
+print(private('Sabrina'))
+>>>
+Allowed operation
+None
+not allow
+```
+
+#### docstring (自文档)
+
+```python
+def test():
+    """this is test"""
+    pass
+
+print(test.__name__)
+print(test.__doc__)
+>>>
+test
+this is test
+```
+
+```python
+import functools
+
+def decorator(fn):
+    @functools.wraps(fn)
+    def inner(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return inner
+
+@decorator
+def func():
+    '''this is test function'''
+    pass
+
+print(func.__name__)
+print(help(func))
+>>>
+func
+Help on function func in module __main__:
+
+func()
+    this is test function
+
+None
+```
+
+
 
